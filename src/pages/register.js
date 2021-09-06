@@ -1,7 +1,40 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Register extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      register: {
+        name: '',
+        email : '',
+        password: ''
+      }
+    }
+  }
+
+  onHandleInput = (event) => {
+
+    this.setState ({
+     register : { ...this.state.register, [event.target.name] : event.target.value}
+    })
+  }
+
+  onClickRegister(){
+    const url = "https://reqres.in/api/register";
+
+    axios.post(url, this.state.register)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+  }
+  
   render() {
     return (
       <div className="login-background">
@@ -39,25 +72,25 @@ class Register extends Component {
                   <div className="col-md-12">
                     <label htmlFor="offer-types">Enter Name :</label>
                     <div className="select-wrap">
-                      <input className="form-control d-block rounded-0" placeholder="Enter your name"/>
+                      <input className="form-control d-block rounded-0" name="name" placeholder="Enter your name" onChange={this.onHandleInput} />
 
                     </div>
                   </div>
                   <div className="col-md-12">
                     <label htmlFor="offer-types">Enter Email ID :</label>
                     <div className="select-wrap">
-                      <input className="form-control d-block rounded-0" placeholder="Enter your email ID"/>
+                      <input className="form-control d-block rounded-0" name="email" placeholder="Enter your email ID" onChange={this.onHandleInput} />
 
                     </div>
                   </div>
                   <div className="col-md-12">
                     <label htmlFor="select-city">Enter Password :</label>
                     <div className="select-wrap">
-                      <input type="password" className="form-control d-block rounded-0" placeholder="Enter your password"/>
+                      <input type="password" className="form-control d-block rounded-0" name="password" placeholder="Enter your password" onChange={this.onHandleInput} />
                     </div>
                   </div>
                   <div className="col-md-12 m-top-5">
-                    <input type="submit" className="btn btn-success text-white btn-block rounded-0" value="Register a New Account" />
+                    <input type="button" className="btn btn-success text-white btn-block rounded-0" value="Register a New Account" onClick={()=>this.onClickRegister()} />
                   </div>
                 </div>
               </form>
