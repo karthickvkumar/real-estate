@@ -1,7 +1,38 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: {
+        email: '',
+        password: ''
+      }
+    }
+  }
+
+  onHandleInput = (event) => {
+
+    this.setState ({
+      login : { ...this.state.login, [event.target.name] : event.target.value}
+    })
+  }
+
+  onClickLogin(){
+    const url = "https://vcentry.herokuapp.com/auth-cookie/login";
+
+    axios.post(url, this.state.login)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+  }
+  
   render() {
     return (
       <div className="login-background">
@@ -40,21 +71,21 @@ class Login extends Component {
                   <div className="col-md-12">
                     <label htmlFor="offer-types">Enter Email ID :</label>
                     <div className="select-wrap">
-                      <input className="form-control d-block rounded-0" placeholder="Enter your email ID"/>
+                      <input className="form-control d-block rounded-0" name="email" placeholder="Enter your email ID" onChange={this.onHandleInput} />
 
                     </div>
                   </div>
                   <div className="col-md-12">
                     <label htmlFor="select-city">Enter Password :</label>
                     <div className="select-wrap">
-                      <input className="form-control d-block rounded-0" placeholder="Enter your password"/>
+                      <input className="form-control d-block rounded-0" name="password" placeholder="Enter your password" onChange={this.onHandleInput} />
                     </div>
                   </div>
                   <div className="col-md-12 m-top-forget">
                     <NavLink to="/reset" className="forget-link">Forget Password ?</NavLink>
                   </div>
                   <div className="col-md-12">
-                    <input type="submit" className="btn btn-success text-white btn-block rounded-0" value="Login" />
+                    <input type="button" className="btn btn-success text-white btn-block rounded-0" value="Login" onClick={()=>this.onClickLogin()}  />
                   </div>
                   <div className="col-md-12 m-top-5">
                     <NavLink to="/register" className="btn btn-register text-white btn-block rounded-0">Create a Account</NavLink>
