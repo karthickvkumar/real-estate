@@ -11,6 +11,8 @@ import Login from './pages/login';
 import ForgetPassword from './pages/forget-password';
 import Register from './pages/register';
 import Dashboard from './pages/admin/dashboard';
+import Maps from './pages/map';
+import MapBox from './pages/map-box';
 
 import './css/bootstrap.min.css';
 import './css/magnific-popup.css';
@@ -37,6 +39,8 @@ class App extends Component {
           <Route path="/register" component={Register}></Route>
           <Route path="/reset" component={ForgetPassword}></Route>
           <Route path="/admin" component={Dashboard}></Route>
+          <Route path="/map" component={Maps}></Route>
+          <Route path="/mapbox" component={MapBox}></Route>
         </Switch>
       </BrowserRouter>
     );
